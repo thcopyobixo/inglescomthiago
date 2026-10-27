@@ -1,0 +1,8 @@
+// Configuração do Cloudflare Workers: publica a pasta como site estático.
+{
+  "name": "inglescomthiago",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    "directory": "."
+  }
+}

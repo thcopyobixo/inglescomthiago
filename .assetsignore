@@ -1,0 +1,9 @@
+.git
+.gitignore
+.assetsignore
+wrangler.jsonc
+_mockups
+tools
+supabase
+*.md
+*.bat
