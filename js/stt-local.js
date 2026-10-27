@@ -1,18 +1,45 @@
 // Reconhecimento de voz LOCAL (Whisper tiny em inglês, rodando no próprio navegador via transformers.js).
 // Usado quando o reconhecimento do navegador não existe (Firefox) ou não alcança o servidor de voz
 // (Brave, Opera, VPN, bloqueadores: erro "network"). O modelo (~41 MB) é baixado uma vez e fica em cache.
+// Biblioteca, motor WASM e modelo ficam no próprio site (vendor/ e models/): alguns navegadores e redes
+// bloqueiam o download direto do Hugging Face ("Failed to fetch"). Se a cópia local faltar, cai no Hugging Face.
 const LocalSTT = (() => {
-  const LIB = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2';
+  const base = new URL('.', document.baseURI).href;
+  const LIB = base + 'vendor/transformers/transformers.min.js';
   const MODEL = 'Xenova/whisper-tiny.en';
   const supported = !!(navigator.mediaDevices && window.MediaRecorder && (window.AudioContext || window.webkitAudioContext));
   let pipePromise = null;
+
+  // o Cloudflare só aceita arquivos de até 25 MB, então o decoder (31 MB) foi dividido em partes;
+  // este fetch remonta o arquivo quando a biblioteca pede por ele
+  const SPLIT = { 'decoder_model_merged_quantized.onnx': 2 };
+  function patchFetch() {
+    if (window.__sttFetchPatched) return;
+    window.__sttFetchPatched = true;
+    const orig = window.fetch.bind(window);
+    window.fetch = async (input, init) => {
+      const url = typeof input === 'string' ? input : input.url;
+      const name = url.startsWith(base + 'models/') && url.split('/').pop();
+      if (name && SPLIT[name]) {
+        const parts = await Promise.all(Array.from({ length: SPLIT[name] }, (_, i) =>
+          orig(`${url}.part${i}`).then(r => { if (!r.ok) throw new Error(`parte ${i} do modelo: ${r.status}`); return r.blob(); })));
+        const blob = new Blob(parts);
+        return new Response(blob, { status: 200, headers: { 'Content-Length': String(blob.size), 'Content-Type': 'application/octet-stream' } });
+      }
+      return orig(input, init);
+    };
+  }
 
   // carrega o modelo uma vez; onProgress(0..100) enquanto baixa
   function load(onProgress) {
     if (!pipePromise) {
       const files = {};
+      patchFetch();
       pipePromise = import(LIB).then(T => {
-        T.env.allowLocalModels = false;
+        T.env.allowLocalModels = true;
+        T.env.localModelPath = base + 'models/';
+        T.env.allowRemoteModels = true;
+        T.env.backends.onnx.wasm.wasmPaths = base + 'vendor/transformers/';
         return T.pipeline('automatic-speech-recognition', MODEL, {
           dtype: 'q8', device: 'wasm',
           progress_callback: (p) => {
