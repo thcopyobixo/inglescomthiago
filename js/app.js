@@ -225,7 +225,8 @@ function finishStep(c, key, score, secs = 0) {
   const st = cState(c.id);
   st.steps[key] = score == null ? 1 : Math.max(st.steps[key] || 0, score);
   if (secs) Store.addMinutes(Math.min(40, secs / 60));
-  Store.addXP(5 + Math.round((score ?? 1) * 10));
+  const gained = 5 + Math.round((score ?? 1) * 10);
+  Store.addXP(gained);
   const k = STEPS.findIndex(s => s.key === key);
   if (!st.done && STEPS.every(s => st.steps[s.key] != null)) {
     st.done = Store.today(); Store.addXP(30); Store.save();
@@ -237,6 +238,14 @@ function finishStep(c, key, score, secs = 0) {
   }
   Store.save();
   const nk = STEPS.findIndex((s, j) => j > k && st.steps[s.key] == null);
+  // lição já concluída antes, refeita até a última etapa: fecha com a tela de conclusão (sem XP extra)
+  if (nk < 0 && k === STEPS.length - 1 && st.done) {
+    const next = todayLesson();
+    view.innerHTML = '';
+    return celebrate({ title: `Lição ${cIndex(c.id) + 1} revisada`, res: { avg: avgSteps(c.id), secs },
+      xp: gained, primary: { label: 'Voltar ao início', run: () => go('') },
+      secondary: next ? { label: 'Ir para a lição de hoje', href: `#/aula/${next.id}` } : null });
+  }
   go(`aula/${c.id}/${nk >= 0 ? nk : Math.min(4, k + 1)}`);
 }
 const avgSteps = (id) => { const v = STEPS.map(s => Store.s.course[id].steps[s.key]).filter(x => typeof x === 'number'); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 1; };
@@ -755,7 +764,8 @@ document.addEventListener('click', (e) => {
 Cloud.onStatus = (st) => { const d = $('.sync-dot'), t = $('.sync-text'); if (d) d.className = `sync-dot ${st}`; if (t) t.textContent = SYNC_LABEL[st]; };
 
 // ---------- roteador ----------
-function go(r) { location.hash = '#/' + r; }
+// mudar para o mesmo hash não dispara hashchange: nesse caso redesenha direto
+function go(r) { const h = '#/' + r; if (location.hash === h) route(); else location.hash = h; }
 function renderResume() {
   const b = $('#resume'), last = Store.s.last;
   const tl = todayLesson();
