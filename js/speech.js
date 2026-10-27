@@ -30,7 +30,7 @@ const Speech = (() => {
       return a;
     }
     // sem MP3 gravado: avisa no console (ajuda a achar texto sem áudio ou lista de áudios antiga)
-    console.warn('[FluentDaily] sem áudio gravado, usando voz do navegador:', text);
+    console.warn('[Inglês com Thiago] sem áudio gravado, usando voz do navegador:', text);
     if (!synth) { toast('Seu navegador não tem síntese de voz'); return; }
     const u = new SpeechSynthesisUtterance(text);
     const v = pickVoice();

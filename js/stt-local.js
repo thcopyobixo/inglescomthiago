@@ -66,7 +66,7 @@ const LocalSTT = (() => {
           const text = (out.text || '').trim();
           opts.onResult && opts.onResult(HALLUCINATION.test(text) ? '' : text, []);
           if (!text) opts.onError && opts.onError('no-speech');
-        } catch (e) { console.error('[FluentDaily] reconhecimento local falhou', e); opts.onError && opts.onError('local-failed'); opts.onResult && opts.onResult('', []); }
+        } catch (e) { console.error('[Inglês com Thiago] reconhecimento local falhou', e); opts.onError && opts.onError('local-failed'); opts.onResult && opts.onResult('', []); }
         opts.onEnd && opts.onEnd();
       };
       rec.start(250);

@@ -1,4 +1,4 @@
-# Como ativar o login no FluentDaily
+# Como ativar o login no Inglês com Thiago
 
 O código do login já está pronto. Faltam só três coisas, que dependem de você:
 1. Criar o banco de dados (Supabase).

@@ -1,4 +1,4 @@
-# FluentDaily · Design
+# Inglês com Thiago · Design
 
 Visual "Floresta", escolhido pelo usuário em 26/10/2026. O layout segue o ivykids.com: menu horizontal no topo, título central grande com serifa, botões em pílula, cartões com contorno de 1px e faixas de cor sólida ocupando a largura toda.
 

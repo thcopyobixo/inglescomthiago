@@ -672,8 +672,8 @@ R.ajustes = () => {
     });
   };
   $('#test').onclick = () => Speech.speak(LISTENING.passages[0].lines[0].t);
-  $('#exp').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(Store.s, null, 1)], { type: 'application/json' })); a.download = `fluentdaily-${Store.today()}.json`; a.click(); };
-  $('#imp').onchange = async (e) => { try { Store.replace(JSON.parse(await e.target.files[0].text())); Store.save(); toast('Progresso importado'); route(); } catch { toast('Arquivo inválido: escolha um backup exportado pelo FluentDaily'); } };
+  $('#exp').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(Store.s, null, 1)], { type: 'application/json' })); a.download = `ingles-com-thiago-${Store.today()}.json`; a.click(); };
+  $('#imp').onchange = async (e) => { try { Store.replace(JSON.parse(await e.target.files[0].text())); Store.save(); toast('Progresso importado'); route(); } catch { toast('Arquivo inválido: escolha um backup exportado pelo Inglês com Thiago'); } };
   $('#rst').onclick = () => { if (confirm('Apagar todo o seu progresso? Isso não pode ser desfeito.')) { Store.reset(); go(''); } };
 };
 
