@@ -117,13 +117,24 @@ const Speech = (() => {
     return { stop: () => { rec.state !== 'inactive' && rec.stop(); return done; } };
   }
 
-  const errMsg = (e) => ({
+  // erro do reconhecimento local vem como "local-failed|etapa|detalhe": explica a etapa e mostra o detalhe técnico
+  const localMsg = (e) => {
+    const [, stage, detail = ''] = String(e).split('|');
+    const why = {
+      load: 'Não consegui baixar o modelo de voz (cerca de 40 MB, só na primeira vez). Confira a internet ou desative bloqueadores/VPN para este site e tente de novo.',
+      decode: 'Não consegui ler o áudio gravado pelo microfone. Tente de novo; se continuar, use o Chrome ou o Edge.',
+      transcribe: 'O modelo de voz carregou, mas falhou ao transcrever. Tente de novo com uma frase curta.'
+    }[stage] || 'O reconhecimento local falhou. Tente de novo.';
+    const safe = detail.replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
+    return safe ? `${why} (detalhe: ${safe})` : why;
+  };
+
+  const errMsg = (e) => String(e).startsWith('local-failed') ? localMsg(e) : ({
     'unsupported': 'Este navegador não permite gravar áudio. Use o Chrome, o Edge ou o Firefox atualizados.',
     'not-allowed': 'Microfone bloqueado. Clique no cadeado da barra de endereço e permita o microfone.',
     'no-speech': 'Não ouvi nada. Tente de novo falando um pouco mais alto e perto do microfone.',
     'audio-capture': 'Nenhum microfone encontrado. Confira se ele está conectado e liberado no Windows.',
-    'network': 'O reconhecimento do navegador não alcançou o servidor de voz. Em Ajustes, escolha "Reconhecimento local".',
-    'local-failed': 'O reconhecimento local não conseguiu carregar. Confira a internet (o modelo é baixado na primeira vez) e tente de novo.'
+    'network': 'O reconhecimento do navegador não alcançou o servidor de voz. Em Ajustes, escolha "Reconhecimento local".'
   }[e] || 'Erro no reconhecimento: ' + e);
 
   return {

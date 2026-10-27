@@ -22,7 +22,12 @@ const LocalSTT = (() => {
             onProgress && onProgress(Math.round(done / all * 100));
           }
         });
-      }).catch(e => { pipePromise = null; throw e; });
+      }).catch(e => {
+        // um download interrompido pode deixar arquivo corrompido no cache: limpa para a próxima tentativa baixar de novo
+        pipePromise = null;
+        try { window.caches && caches.delete('transformers-cache'); } catch {}
+        e.stage = 'load'; throw e;
+      });
     }
     return pipePromise;
   }
@@ -59,14 +64,21 @@ const LocalSTT = (() => {
         cancelAnimationFrame(raf); ctx && ctx.close(); stream.getTracks().forEach(t => t.stop());
         if (!chunks.length) return fail('no-speech');
         opts.onInterim && opts.onInterim('Transcrevendo…');
+        let stage = 'decode';
         try {
           const pcm = await toPCM16k(new Blob(chunks, { type: rec.mimeType }));
+          stage = 'load';
           const asr = await ready;
+          stage = 'transcribe';
           const out = await asr(pcm, { chunk_length_s: 30 });
           const text = (out.text || '').trim();
           opts.onResult && opts.onResult(HALLUCINATION.test(text) ? '' : text, []);
           if (!text) opts.onError && opts.onError('no-speech');
-        } catch (e) { console.error('[Inglês com Thiago] reconhecimento local falhou', e); opts.onError && opts.onError('local-failed'); opts.onResult && opts.onResult('', []); }
+        } catch (e) {
+          console.error('[Inglês com Thiago] reconhecimento local falhou na etapa', stage, e);
+          const detail = String((e && (e.message || e.name)) || e).slice(0, 120);
+          opts.onError && opts.onError(`local-failed|${stage}|${detail}`); opts.onResult && opts.onResult('', []);
+        }
         opts.onEnd && opts.onEnd();
       };
       rec.start(250);
