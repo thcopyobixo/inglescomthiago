@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Direções Ivy</title>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Gloock&family=Onest:wght@400;500;600&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.55 Onest,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 56px;border-bottom:1px solid var(--rule)}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--serif);font-size:22px}
+.badge{width:52px;height:52px;border-radius:50%;background:var(--deep);color:var(--bg);display:grid;place-items:center;font-family:var(--serif);font-size:20px;box-shadow:0 0 0 3px var(--bg),0 0 0 4.5px var(--deep)}
+.links{display:flex;gap:28px;font-size:15px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:40px;background:var(--accent);color:var(--onaccent);font-weight:500;font-size:15px}
+.pill.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.hero{text-align:center;padding:76px 56px 64px;position:relative}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:76px;line-height:1.04;letter-spacing:-.02em;max-width:15ch;margin:0 auto}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-size:20px;color:var(--soft);max-width:44ch;margin:22px auto 30px}
+.hero .row{display:flex;gap:12px;justify-content:center}
+.shape{position:absolute}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 56px 70px}
+.card{border:1px solid var(--line);border-radius:16px;padding:26px;min-height:200px;position:relative;overflow:hidden;background:var(--cardbg)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.15}
+.card p{color:var(--soft);font-size:15px;margin-top:8px;max-width:30ch}
+.card .meta{position:absolute;left:26px;bottom:22px;font-size:14px;font-weight:500;color:var(--accent)}
+.card .dot{position:absolute;right:-18px;bottom:-18px;width:110px;height:110px;border-radius:50%}
+.card.feature{background:var(--accent);color:var(--onaccent);border-color:var(--accent)}
+.card.feature p{color:var(--onaccent);opacity:.85}
+.card.feature .meta{color:var(--onaccent)}
+.band{background:var(--deep);color:var(--bg);padding:64px 56px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.band h2{font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.08}
+.band p{opacity:.8;margin-top:14px;max-width:46ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.18);border-radius:16px;overflow:hidden}
+.stats div{background:var(--deep);padding:22px}
+.stats b{display:block;font-family:var(--serif);font-weight:400;font-size:40px}
+.stats span{font-size:14px;opacity:.75}
+
+/* 1 — Ivy fiel: creme, framboesa, vinho */
+.t1{--bg:#FFFCF3;--ink:#240311;--soft:#5b4a50;--accent:#A3195B;--onaccent:#fff;--deep:#5E0B32;--line:#cfc4bf;--rule:#eadfd6;--cardbg:transparent;--serif:"Young Serif",serif}
+/* 2 — Floresta: creme, verde profundo, mostarda */
+.t2{--bg:#FBF7EC;--ink:#14261E;--soft:#4a5a52;--accent:#1F5C43;--onaccent:#FBF7EC;--deep:#173E2F;--line:#c9cdbf;--rule:#e5e2d2;--cardbg:transparent;--serif:"Gloock",serif}
+/* 3 — Marinho: branco quente, azul-marinho, coral */
+.t3{--bg:#FFFAF5;--ink:#121A3A;--soft:#4c5372;--accent:#E8573C;--onaccent:#fff;--deep:#16255C;--line:#cdcbd6;--rule:#ece6e0;--cardbg:transparent;--serif:"Young Serif",serif}
+/* 4 — Framboesa total: a cor é a superfície */
+.t4{--bg:#A3195B;--ink:#FFF4EA;--soft:#ffd9e6;--accent:#FFF4EA;--onaccent:#A3195B;--deep:#3A0620;--line:rgba(255,244,234,.45);--rule:rgba(255,244,234,.25);--cardbg:rgba(255,244,234,.06);--serif:"Bricolage Grotesque",sans-serif}
+.t4 .hero h1{font-weight:600;letter-spacing:-.04em;font-size:84px}
+.t4 .card h3,.t4 .band h2,.t4 .stats b{font-weight:600;letter-spacing:-.03em}
+.t4 .badge{background:#FFF4EA;color:#A3195B;box-shadow:none}
+</style>
+</head>
+<body class="t1">
+<header class="nav">
+  <div class="logo"><span class="badge">Fd</span>FluentDaily</div>
+  <nav class="links"><a>Trilha</a><a>Vocabulário</a><a>Listening</a><a>Speaking</a><a>Writing</a><a>Progresso</a></nav>
+  <a class="pill">Continuar estudando →</a>
+</header>
+<section class="hero">
+  <svg class="shape" style="left:9%;top:70px" width="84" height="84"><circle cx="42" cy="42" r="42" fill="var(--accent)" opacity=".14"/></svg>
+  <svg class="shape" style="right:10%;top:150px" width="120" height="60"><path d="M4 50 C 30 0, 60 0, 60 30 S 90 60, 116 10" fill="none" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" opacity=".5"/></svg>
+  <h1>Your English grows <em>one</em> conversation at a time.</h1>
+  <p>Estude o quanto quiser, na ordem que quiser. Você parou na lição 4: <b>Make × Do</b>.</p>
+  <div class="row"><a class="pill">Continuar a lição 4 →</a><a class="pill ghost">Escolher outra lição</a></div>
+</section>
+<section class="cards">
+  <article class="card feature"><h3>Trilha de lições</h3><p>14 lições do B1 ao C1. Abra qualquer uma, a qualquer hora.</p><span class="meta">4 de 14 concluídas</span></article>
+  <article class="card"><h3>Listening com voz nativa</h3><p>Diálogos e histórias gravados com vozes neurais americanas e britânicas.</p><span class="meta">8 áudios →</span><span class="dot" style="background:var(--accent);opacity:.12"></span></article>
+  <article class="card"><h3>Speaking</h3><p>Fale a frase e veja palavra por palavra o que foi entendido.</p><span class="meta">36 frases →</span></article>
+  <article class="card"><h3>Vocabulário</h3><p>Flashcards que voltam no dia certo.</p><span class="meta">12 para revisar →</span></article>
+  <article class="card"><h3>Writing</h3><p>Corrija, traduza e escreva textos livres.</p><span class="meta">Praticar →</span><span class="dot" style="background:var(--deep);opacity:.1"></span></article>
+  <article class="card"><h3>Leitura</h3><p>Textos reais e graduados com glossário e áudio.</p><span class="meta">Novo →</span></article>
+</section>
+<section class="band">
+  <div><h2>Sem limite de tempo. Estude no seu ritmo.</h2><p>Defina uma meta diária se quiser, ou simplesmente continue. O site lembra onde você parou.</p></div>
+  <div class="stats"><div><b>2h 40</b><span>esta semana</span></div><div><b>12</b><span>dias seguidos</span></div><div><b>318</b><span>palavras</span></div></div>
+</section>
+<script>document.body.className='t'+(location.hash.slice(1)||'1')</script>
+</body>
+</html>
