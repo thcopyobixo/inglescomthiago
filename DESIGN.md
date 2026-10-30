@@ -1,20 +1,19 @@
 # Inglês com Thiago · Design
 
-Visual "Floresta", escolhido pelo usuário em 26/10/2026. O layout segue o ivykids.com: menu horizontal no topo, título central grande com serifa, botões em pílula, cartões com contorno de 1px e faixas de cor sólida ocupando a largura toda.
+Visual nas cores da bandeira dos EUA (opção "C · Vermelho", escolhida pelo usuário em 30/10/2026), substituindo o antigo "Floresta". O layout segue o ivykids.com: menu horizontal no topo, título central grande com serifa, botões em pílula, cartões com contorno de 1px e faixas de cor sólida ocupando a largura toda. Os tokens mantêm os nomes antigos (`--green`, `--sage`...) para não mexer no resto do CSS.
 
 ## Cores (`css/app.css`, `:root`)
 | Token | Valor | Uso |
 |---|---|---|
-| `--bg` | `#FBF7EC` | fundo papel creme (fixado pelo briefing do Ivy Kids) |
-| `--paper` | `#FFFDF6` | cartão no hover, painéis, tarefa do exercício |
-| `--ink` | `#14261E` | texto principal |
-| `--soft` / `--mute` | `#3E4F46` / `#67756D` | texto secundário |
-| `--line` / `--rule` | `#BFC6B6` / `#E4E0CF` | contorno dos cartões / divisórias |
-| `--green` | `#1F5C43` | ação principal (pílulas), destaques |
-| `--deep` | `#173E2F` | faixas, player de áudio, verso do flashcard, selo do logo |
-| `--sage` / `--tint` | `#DCE6D2` / `#EEF0E2` | estado ativo, linha tocando, item concluído |
-| `--mustard-tint` | `#F5E9C8` | dicas e callouts |
-| `--ok` `--bad` `--warn` | verde / tijolo / ocre | feedback dos exercícios |
+| `--bg` / `--paper` | `#FFFFFF` | fundo branco, painéis, tarefa do exercício |
+| `--ink` | `#0E1A2E` | texto principal (azul-marinho quase preto) |
+| `--soft` / `--mute` | `#34425A` / `#5F6B80` | texto secundário |
+| `--line` / `--rule` | `#CDD3DE` / `#E8EBF1` | contorno dos cartões / divisórias |
+| `--green` | `#B22234` | ação principal (pílulas), destaques, tile principal: vermelho da bandeira |
+| `--deep` | `#002868` | faixas, player de áudio, verso do flashcard, selo do logo: azul da bandeira |
+| `--sage` / `--tint` | `#FBE3E6` / `#F3F5F9` | estado ativo, linha tocando, item concluído |
+| `--mustard-tint` | `#DFE6F3` | dicas e callouts |
+| `--ok` `--bad` `--warn` | verde / tijolo / ocre | feedback dos exercícios (o verde de "certo" continua verde) |
 
 ## Tipografia
 - Títulos: **Gloock** (serifa de alto contraste, sempre no peso regular), de 72px no hero a 21px em listas.
@@ -23,7 +22,7 @@ Visual "Floresta", escolhido pelo usuário em 26/10/2026. O layout segue o ivyki
 
 ## Componentes
 - **Pílula** (`.pill`, `.line`, `.soft`, `.cream`, `.sm`, `.icon`, `.rec`): raio de 40px, altura mínima de 46px.
-- **Tile e cartão** (`.tile`, `.card`): 1px `--line`, raio de 16px, fundo transparente. No hover, a borda fica na cor da tinta, o fundo vira `--paper` e o cartão sobe 3px. O tile principal (`.feature`) é verde sólido e ocupa duas linhas.
+- **Tile e cartão** (`.tile`, `.card`): 1px `--line`, raio de 16px, fundo transparente. No hover, a borda fica na cor da tinta, o fundo vira `--paper` e o cartão sobe 3px. O tile principal (`.feature`) é vermelho sólido e ocupa duas linhas.
 - **Faixa** (`.band`): `--deep` em largura total, com estatísticas em grade contornada.
 - **Linha da trilha** (`.lrow`): número em serifa, título em serifa e status à direita.
 - **Player** (`.player`): pílula grande `--deep`, botão de tocar creme e seletor de velocidade segmentado. As falas destacam a linha que está tocando (`.line.active`).

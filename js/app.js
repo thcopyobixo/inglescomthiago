@@ -152,7 +152,7 @@ R.home = () => {
     <section class="hero today">
       <span class="orb" style="width:96px;height:96px;left:7%;top:84px;background:var(--sage)"></span>
       <span class="orb" style="width:34px;height:34px;right:15%;top:300px;background:var(--mustard-tint)"></span>
-      <svg class="squiggle" style="right:7%;top:120px" width="130" height="64" aria-hidden="true"><path d="M4 52 C 30 0, 62 0, 62 32 S 96 62, 126 10" fill="none" stroke="#9CC3A5" stroke-width="5" stroke-linecap="round"/></svg>
+      <svg class="squiggle" style="right:7%;top:120px" width="130" height="64" aria-hidden="true"><path d="M4 52 C 30 0, 62 0, 62 32 S 96 62, 126 10" fill="none" style="stroke:var(--leaf)" stroke-width="5" stroke-linecap="round"/></svg>
       ${hero}
     </section>
     <section class="wrap">
@@ -629,7 +629,7 @@ R.progresso = () => {
       <div class="stats"><div><b>${fmtTime(Store.minutesSince(7))}</b><span>últimos 7 dias</span></div><div><b>${S.streak}</b><span>${S.streak === 1 ? 'dia seguido' : 'dias seguidos'}</span></div><div><b>${Object.values(S.srs).filter(c => c.ivl >= 21).length}</b><span>palavras dominadas</span></div></div></div></section>
     <div class="wrap" style="padding-top:56px;padding-bottom:80px">
       <div class="grid2" style="align-items:start">
-        <section class="panel"><div class="spread"><h3>Últimos 5 meses</h3><div class="legend">menos <i style="background:var(--rule)"></i><i style="background:#C9DCC4"></i><i style="background:#7FB08F"></i><i style="background:var(--green)"></i> 45+ min</div></div><div class="heat" style="margin-top:18px">${heat(147)}</div></section>
+        <section class="panel"><div class="spread"><h3>Últimos 5 meses</h3><div class="legend">menos <i style="background:var(--rule)"></i><i style="background:#F5C6CC"></i><i style="background:#E06A79"></i><i style="background:var(--green)"></i> 45+ min</div></div><div class="heat" style="margin-top:18px">${heat(147)}</div></section>
         <section class="panel"><h3 style="margin-bottom:8px">Por habilidade</h3>
           ${sk('Lições', `${LESSONS.filter(l => S.lessons[l.id]).length}/${LESSONS.length}`, 'concluídas')}
           ${sk('Listening', `${LISTENING.passages.filter(p => S.scores[p.id] != null).length}/${LISTENING.passages.length}`, 'áudios respondidos')}
